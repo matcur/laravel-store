@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Store\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +16,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+$args = [
+    'as' => 'store.',
+    'prefix' => 'store',
+];
+Route::group($args, function() {
+    Route::resource('products', ProductController::class)
+        ->only(['index', 'show', 'create'])
+        ->names('products');
+
+    Route::resource('categories', ProductController::class)
+        ->only(['index', 'show'])
+        ->names('categories');
 });
