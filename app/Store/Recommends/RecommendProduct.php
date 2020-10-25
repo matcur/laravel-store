@@ -18,19 +18,18 @@ class RecommendProduct
      * @param null|int $count
      * @return Collection
      */
-    public static function get($value, $count = null)
+    public static function get($value, int $count = null)
     {
         $categoriesIds = self::getRecommendCategoriesIds($value);
 
-        if (is_null($count))
-            return Product::whereIn('category_id', $categoriesIds)
-                ->with('currency')
-                ->inRandomOrder()
-                ->get();
-
-        return Product::whereIn('category_id', $categoriesIds)
+        $query = Product::whereIn('category_id', $categoriesIds)
             ->with('currency')
-            ->inRandomOrder()
+            ->inRandomOrder();
+
+        if (is_null($count))
+            return $query->get();
+
+        return $query
             ->limit($count)
             ->get();
     }
