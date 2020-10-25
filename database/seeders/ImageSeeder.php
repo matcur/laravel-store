@@ -2,13 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\View;
-use App\Store\Contracts\Models\HasViews;
+use App\Models\Image;
+use App\Store\Contracts\Models\HasImages;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
-class ViewSeeder extends Seeder
+class ImageSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -19,13 +18,13 @@ class ViewSeeder extends Seeder
     public function run(Collection $collection)
     {
         $collection
-            ->map(function (HasViews $model) {
-                $views = View
+            ->map(function (HasImages $model) {
+                $views = Image
                     ::factory()
                     ->count(rand(1, 10))
                     ->make()
                     ->toArray();
-                return $model->views()->createMany($views);
+                return $model->images()->createMany($views);
             });
     }
 }

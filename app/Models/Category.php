@@ -3,10 +3,11 @@
 namespace App\Models;
 
 use App\Store\Contracts\Models\HasShowRoute;
+use App\Store\Contracts\Models\HasViews;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model implements HasShowRoute
+class Category extends Model implements HasShowRoute, HasViews
 {
     use HasFactory;
 
@@ -15,6 +16,16 @@ class Category extends Model implements HasShowRoute
         'short_description',
         'description',
     ];
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+
+    public function views()
+    {
+        return $this->morphMany(View::class, 'viewable');
+    }
 
     public function getRouteKeyName()
     {

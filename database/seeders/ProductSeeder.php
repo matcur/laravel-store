@@ -3,8 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Product;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\View;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ProductSeeder extends Seeder
 {
@@ -15,8 +16,11 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {
-        Product::factory()
+        $products = Product::factory()
             ->count(15)
             ->create();
+
+        (new ViewSeeder)->run($products);
+        (new ImageSeeder)->run($products);
     }
 }

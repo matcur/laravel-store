@@ -10,8 +10,14 @@ class View extends Model
     use HasFactory;
 
     protected $fillable = [
-        'url',
+        'viewable_type',
+        'viewable_id',
         'user_id',
         'ip',
     ];
+
+    public function viewable()
+    {
+        return $this->morphTo();
+    }
 }

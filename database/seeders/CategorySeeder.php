@@ -14,8 +14,10 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        Category::factory()
+        $categories = Category::factory()
             ->count(10)
             ->create();
+
+        (new ViewSeeder)->run($categories);
     }
 }

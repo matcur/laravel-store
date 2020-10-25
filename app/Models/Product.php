@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Store\Contracts\Models\HasImages;
 use App\Store\Contracts\Models\HasShowRoute;
+use App\Store\Contracts\Models\HasViews;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Product extends Model implements HasShowRoute
+class Product extends Model implements HasShowRoute, HasViews, HasImages
 {
     use HasFactory;
 
@@ -32,6 +34,11 @@ class Product extends Model implements HasShowRoute
     public function images()
     {
         return $this->morphMany(Image::class, 'imageable');
+    }
+
+    public function views()
+    {
+        return $this->morphMany(View::class, 'viewable');
     }
 
     //Добавил, чтобы избавиться от float в базе данных
