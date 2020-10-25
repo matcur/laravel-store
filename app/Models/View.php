@@ -20,4 +20,9 @@ class View extends Model
     {
         return $this->morphTo();
     }
+
+    public function scopeProducts($query)
+    {
+        return $query->where('viewable_type', Product::class);
+    }
 }

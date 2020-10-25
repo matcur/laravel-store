@@ -21,10 +21,11 @@ class ViewFactory extends Factory
      */
     public function definition()
     {
+        $localDebIp = '127.0.0.1';
         $faker = $this->faker;
 
         return [
-            'ip' => $faker->ipv4,
+            'ip' => rand(0, 5) > 2? $faker->ipv4: $localDebIp,
         ];
     }
 }

@@ -21,7 +21,7 @@ class ImageSeeder extends Seeder
             ->map(function (HasImages $model) {
                 $views = Image
                     ::factory()
-                    ->count(rand(1, 10))
+                    ->count(rand(1, 4))
                     ->make()
                     ->toArray();
                 return $model->images()->createMany($views);

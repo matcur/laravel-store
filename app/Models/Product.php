@@ -5,9 +5,9 @@ namespace App\Models;
 use App\Store\Contracts\Models\HasImages;
 use App\Store\Contracts\Models\HasShowRoute;
 use App\Store\Contracts\Models\HasViews;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Product extends Model implements HasShowRoute, HasViews, HasImages
 {
@@ -21,12 +21,12 @@ class Product extends Model implements HasShowRoute, HasViews, HasImages
         'price',
     ];
 
-    public function category(): BelongsTo
+    public function category()
     {
         return $this->belongsTo(Category::class);
     }
 
-    public function currency(): BelongsTo
+    public function currency()
     {
         return $this->belongsTo(Currency::class);
     }
@@ -39,6 +39,12 @@ class Product extends Model implements HasShowRoute, HasViews, HasImages
     public function views()
     {
         return $this->morphMany(View::class, 'viewable');
+    }
+
+    public function scopePopulars(Builder $query)
+    {
+        return $query->withCount('views')
+            ->orderBy('views_count', 'desc');
     }
 
     //Добавил, чтобы избавиться от float в базе данных
@@ -60,5 +66,10 @@ class Product extends Model implements HasShowRoute, HasViews, HasImages
         $routeKey = $this->getRouteKey();
 
         return route('store.products.show', $routeKey);
+    }
+
+    public function getPriceWithSymbol()
+    {
+        return $this->price . ' ' . $this->currency->symbol;
     }
 }

@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('short_description');
             $table->string('description');
             $table->integer('price');
+            $table->string('thumbnail_path');
             $table->unsignedBigInteger('currency_id');
             $table->foreign('currency_id')
                 ->references('id')

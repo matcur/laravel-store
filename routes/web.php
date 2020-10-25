@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Store\HomeController;
 use App\Http\Controllers\Store\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,9 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index']);
 
 $args = [
     'as' => 'store.',
@@ -33,5 +32,3 @@ Route::group($args, function() {
 });
 
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

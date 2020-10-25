@@ -17,7 +17,7 @@ class ProductSeeder extends Seeder
     public function run()
     {
         $products = Product::factory()
-            ->count(15)
+            ->count(45)
             ->create();
 
         (new ViewSeeder)->run($products);
