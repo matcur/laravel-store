@@ -24,10 +24,12 @@ class RecommendProduct
 
         if (is_null($count))
             return Product::whereIn('category_id', $categoriesIds)
+                ->with('currency')
                 ->inRandomOrder()
                 ->get();
 
         return Product::whereIn('category_id', $categoriesIds)
+            ->with('currency')
             ->inRandomOrder()
             ->limit($count)
             ->get();

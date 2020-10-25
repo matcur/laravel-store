@@ -72,4 +72,9 @@ class Product extends Model implements HasShowRoute, HasViews, HasImages
     {
         return $this->price . ' ' . $this->currency->symbol;
     }
+
+    public static function getPopularsPaginate($perPage = 10)
+    {
+        return self::populars()->with('currency')->paginate($perPage);
+    }
 }

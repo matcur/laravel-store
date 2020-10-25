@@ -20,7 +20,11 @@
                                         {{ $product->getPriceWithSymbol() }}
                                     </span>
                                 </div>
-                                <img src="{{ asset('storage/test-images/' . $product->thumbnail_path)  }}" alt="" class="product-thumbnail-big">
+                                <div class="product-image-wrapper">
+                                    <img src="{{ asset('storage/test-images/' . $product->thumbnail_path)  }}"
+                                         alt="Product image"
+                                         class="product-thumbnail-big">
+                                </div>
                                 <div class="description">
                                     {{ $product->short_description }}
                                 </div>

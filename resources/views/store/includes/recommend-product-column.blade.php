@@ -1,3 +1,8 @@
+@php
+/**
+ * @var \App\Models\Product $product
+ */
+@endphp
 <div class="col-md-3">
     <div class="card">
         <div class="card-body">
@@ -10,7 +15,7 @@
                                 {{ $product->name }}
                             </a>
                             <span class="price">
-                                {{ $product->price }}
+                                {{ $product->getPriceWithSymbol() }}
                             </span>
                         </div>
                     </div>
