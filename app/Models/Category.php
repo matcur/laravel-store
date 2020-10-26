@@ -3,11 +3,11 @@
 namespace App\Models;
 
 use App\Store\Contracts\Models\HasShowRoute;
-use App\Store\Contracts\Models\HasViews;
+use App\Store\Contracts\Models\Viewable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model implements HasShowRoute, HasViews
+class Category extends Model implements HasShowRoute, Viewable
 {
     use HasFactory;
 

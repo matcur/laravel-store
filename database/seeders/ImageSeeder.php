@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Image;
-use App\Store\Contracts\Models\HasImages;
+use App\Store\Contracts\Models\Imageable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Seeder;
 
@@ -18,7 +18,7 @@ class ImageSeeder extends Seeder
     public function run(Collection $collection)
     {
         $collection
-            ->map(function (HasImages $model) {
+            ->map(function (Imageable $model) {
                 $views = Image
                     ::factory()
                     ->count(rand(1, 4))

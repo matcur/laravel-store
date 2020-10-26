@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Store;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Store\Recommends\RecommendProduct;
+use App\Store\Services\ViewService;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -13,6 +15,13 @@ use Illuminate\Http\Response;
 
 class ProductController extends Controller
 {
+    private ViewService $viewService;
+
+    public function __construct()
+    {
+        $this->viewService = new ViewService();
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -42,6 +51,8 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
+        $this->viewService->tryCreateTodayView($product);
+
         $recommendProducts = RecommendProduct::get(request()->ip());
 
         return view('store.products.show', compact(

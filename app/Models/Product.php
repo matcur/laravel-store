@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
-use App\Store\Contracts\Models\HasImages;
+use App\Store\Contracts\Models\Imageable;
 use App\Store\Contracts\Models\HasShowRoute;
-use App\Store\Contracts\Models\HasViews;
+use App\Store\Contracts\Models\Viewable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model implements HasShowRoute, HasViews, HasImages
+class Product extends Model implements HasShowRoute, Viewable, Imageable
 {
     use HasFactory;
 

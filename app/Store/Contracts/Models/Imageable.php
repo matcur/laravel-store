@@ -4,7 +4,7 @@
 namespace App\Store\Contracts\Models;
 
 
-interface HasImages
+interface Imageable
 {
     function images();
 }

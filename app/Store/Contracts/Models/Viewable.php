@@ -4,7 +4,7 @@
 namespace App\Store\Contracts\Models;
 
 
-interface HasViews
+interface Viewable
 {
     function views();
 }
