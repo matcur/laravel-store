@@ -16,25 +16,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'index']);
-
 $args = [
     'as' => 'store.',
     'prefix' => 'store',
 ];
 Route::group($args, function() {
+    Route::get('/', [HomeController::class, 'index']);
+
     Route::resource('products', ProductController::class)
-        ->only(['index', 'show', 'create'])
+        ->only(['show', 'create'])
         ->names('products');
 
     Route::resource('categories', ProductController::class)
-        ->only(['index', 'show'])
+        ->only(['show'])
         ->names('categories');
 
     Route::post('/cart/add', [CartController::class, 'add'])
         ->name('cart.add');
     Route::post('/cart/remove', [CartController::class, 'remove'])
         ->name('cart.remove');
+    Route::get('cart', [CartController::class, 'show'])
+        ->name('cart.show');
 });
 
 Auth::routes();

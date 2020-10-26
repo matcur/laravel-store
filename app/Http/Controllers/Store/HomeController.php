@@ -11,12 +11,8 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $recommendProducts = RecommendProduct::get(request()->ip(), 10);
         $popularProductsPaginate = Product::getPopularsPaginate();
 
-        return view('store.home', compact(
-            'recommendProducts',
-            'popularProductsPaginate'
-        ));
+        return view('store.home', compact('popularProductsPaginate'));
     }
 }

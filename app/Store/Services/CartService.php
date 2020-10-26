@@ -20,14 +20,13 @@ class CartService
 
     public function getCart(): Cart
     {
-        if ($this->session->has($this->cartSessionId)) {
-            return $this->getFromSession();
-        }
+        if ($this->session->has($this->cartSessionId))
+            return $this->getCartFromSession();
 
         return new Cart();
     }
 
-    public function getFromSession(): Cart
+    public function getCartFromSession(): Cart
     {
         return $this->session->get($this->cartSessionId);
     }

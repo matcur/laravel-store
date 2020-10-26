@@ -61,7 +61,7 @@ class Product extends Model implements HasShowRoute, Viewable, Imageable
         return $this;
     }
 
-    function getShowRoute(): string
+    public function getShowRoute(): string
     {
         $routeKey = $this->getRouteKey();
 
@@ -70,7 +70,12 @@ class Product extends Model implements HasShowRoute, Viewable, Imageable
 
     public function getPriceWithSymbol()
     {
-        return $this->price . ' ' . $this->currency->symbol;
+        return $this->price . ' ' . $this->getCurrencySymbol();
+    }
+
+    public function getCurrencySymbol()
+    {
+        return $this->currency->symbol;
     }
 
     public static function getPopularsPaginate($perPage = 10)

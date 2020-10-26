@@ -4,18 +4,26 @@
 namespace App\Store\Cart;
 
 
-use Symfony\Component\Routing\Exception\InvalidParameterException;
-
 class Cart
 {
     /** @var ProductsSet[] */
-    public array $items;
+    public array $items = [];
+
+    public function getTotalPrice()
+    {
+        $totalPrice = 0;
+        foreach ($this->items as $item) {
+            $totalPrice += $item->getTotalPrice();
+        }
+
+        return $totalPrice;
+    }
 
     public function add(ProductsSet $productsSet)
     {
         $productId = $productsSet->getProductId();
         if (isset($this->items[$productId])) {
-            $this->items[$productId]->growCount($productsSet->getCount());
+            $this->items[$productId]->growCount($productsSet->count);
         } else {
             $this->items[$productId] = $productsSet;
         }
@@ -29,7 +37,7 @@ class Cart
         if (isset($this->items[$productId])) {
             unset($this->items[$productId]);
         } else {
-            throw new InvalidParameterException("Product $productId doesn't exists");
+            throw new \Exception("Product $productId doesn't found.");
         }
     }
 }

@@ -53,12 +53,7 @@ class ProductController extends Controller
     {
         $this->viewService->tryCreateTodayView($product);
 
-        $recommendProducts = RecommendProduct::get(request()->ip());
-
-        return view('store.products.show', compact(
-            'product',
-            'recommendProducts'
-        ));
+        return view('store.products.show', compact('product'));
     }
 
     /**

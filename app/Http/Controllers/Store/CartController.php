@@ -19,6 +19,13 @@ class CartController extends Controller
         $this->cartService = $cartService;
     }
 
+    public function show()
+    {
+        $cart = $this->cartService->getCart();
+
+        return view('store.cart.show', compact('cart'));
+    }
+
     public function add(Request $request)
     {
         $productsSet = ProductsSet::makeFromRequest($request);
@@ -27,6 +34,7 @@ class CartController extends Controller
         $cart->add($productsSet);
 
         $this->cartService->putInSession($cart);
+
         return response()->json($cart);
     }
 
