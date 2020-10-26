@@ -12,16 +12,16 @@ use Illuminate\Support\Collection;
 
 class Cart
 {
+    /** @var Collection $content */
+    public Collection $content;
     public Session $session;
     private string $id;
-    /** @var Collection $content */
-    private Collection $content;
 
     public function __construct(Session $session)
     {
         $this->session = $session;
         $this->id = 'cart';
-        $this->content = $this->session->get($this->id);
+        $this->content = $this->session->get($this->id) ?? new Collection;
     }
 
     public static function makeFromRequest(Request $request)
@@ -57,20 +57,14 @@ class Cart
 
     public function add(BuyableSet $set)
     {
-        $oldSet = $this->content()->get($set->buyableId());
+        $oldSet = $this->content->get($set->buyableId());
         if (!is_null($oldSet))
-            $set->count += $oldSet->count();
+            $set->count += $oldSet->count;
 
         $this->content->put($set->buyableId(), $set);
-
-        $this->session->put($this->id, $this->content());
+        $this->session->put($this->id, $this->content);
 
         return $this;
-    }
-
-    public function content()
-    {
-        return $this->content;
     }
 
     public function get($buyableId)
