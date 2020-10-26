@@ -2,16 +2,19 @@
 
 namespace App\Models;
 
+use App\Store\Contracts\Cart\Buyable;
 use App\Store\Contracts\Models\Imageable;
 use App\Store\Contracts\Models\HasShowRoute;
 use App\Store\Contracts\Models\Viewable;
+use App\Store\Traits\CanBeBought;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model implements HasShowRoute, Viewable, Imageable
+class Product extends Model implements HasShowRoute, Viewable, Imageable, Buyable
 {
     use HasFactory;
+    use CanBeBought;
 
     protected $fillable = [
         'name',
