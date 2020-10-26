@@ -9,6 +9,10 @@ class Cart
     /** @var ProductsSet[] */
     public array $items = [];
 
+    /**
+      * Todo! Если у наборов продуктов будут разные цены,
+      * то выдаст неправильную цену
+     */
     public function getTotalPrice()
     {
         $totalPrice = 0;
