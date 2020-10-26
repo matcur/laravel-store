@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Store;
 use App\Http\Controllers\Controller;
 use App\Store\Cart\Cart;
 use App\Store\Cart\ProductsSet;
-use App\Store\Services\CartService;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 
@@ -44,10 +43,5 @@ class CartController extends Controller
         $cart->remove($productsSet->id);
 
         return response()->json($cart);
-    }
-
-    public function prepareToPay(Request $request)
-    {
-        $cart = Cart::makeFromRequest($request);
     }
 }

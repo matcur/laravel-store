@@ -31,7 +31,7 @@ class Cart
 
         $ids = $productsRequest->pluck('id');
         $counts = $productsRequest->pluck('count');
-        $products = Product::find($ids);
+        $products = Product::findOrFail($ids);
         for ($i = 0; $i < $products->count(); $i++) {
             $productsSet = new ProductsSet($products[$i], $counts[$i]);
             $cart->add($productsSet);
