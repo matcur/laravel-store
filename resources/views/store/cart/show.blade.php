@@ -16,8 +16,8 @@
                             @foreach($cart->items as $productsSet)
                                 @php
                                     /**
-                                      * @var \App\Store\Cart\ProductsSet $productsSet
-                                      * @var \App\Models\Product $product
+                                     * @var \App\Store\Cart\ProductsSet $productsSet
+                                     * @var \App\Models\Product $product
                                      */
                                       $product = $productsSet->product;
                                 @endphp
