@@ -22,7 +22,7 @@ class ImageFactory extends Factory
      */
     public function definition()
     {
-        $files = Storage::disk('test-images')->allFiles();
+        $files = Storage::disk('public')->allFiles('storage/test-images');
         $file = collect($files)->random();
 
         return [

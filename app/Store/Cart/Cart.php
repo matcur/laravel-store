@@ -28,13 +28,12 @@ class Cart
     {
         $cart = app(Cart::class);
         $productsRequest = collect($request['products']);
-        Log::info($request);
 
         $ids = $productsRequest->pluck('id');
         $counts = $productsRequest->pluck('count');
         $products = Product::findOrFail($ids);
         for ($i = 0; $i < $products->count(); $i++) {
-            $productsSet = new BuyableSet($products[$i], $counts[$i]);
+            $productsSet = new ProductSet($products[$i], $counts[$i]);
             $cart->add($productsSet);
         }
 
@@ -49,14 +48,14 @@ class Cart
     {
         $totalPrice = 0;
         foreach ($this->content as $item) {
-            /** @var BuyableSet $item */
+            /** @var ProductSet $item */
             $totalPrice += $item->totalPrice();
         }
 
         return $totalPrice;
     }
 
-    public function add(BuyableSet $set)
+    public function add(ProductSet $set)
     {
         $oldSet = $this->content->get($set->buyableId());
         if (!is_null($oldSet))

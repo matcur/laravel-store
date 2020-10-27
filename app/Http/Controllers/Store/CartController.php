@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Store;
 
 use App\Http\Controllers\Controller;
 use App\Store\Cart\Cart;
-use App\Store\Cart\BuyableSet;
+use App\Store\Cart\ProductSet;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 
@@ -24,7 +24,7 @@ class CartController extends Controller
 
     public function add(Request $request, Cart $cart)
     {
-        $productsSet = BuyableSet::makeFromRequest($request);
+        $productsSet = ProductSet::makeFromRequest($request);
         $cart->add($productsSet);
 
         return response()->json($cart);
@@ -39,7 +39,7 @@ class CartController extends Controller
 
     public function remove(Request $request, Cart $cart)
     {
-        $productsSet = BuyableSet::makeFromRequest($request);
+        $productsSet = ProductSet::makeFromRequest($request);
         $cart->remove($productsSet->id);
 
         return response()->json($cart);

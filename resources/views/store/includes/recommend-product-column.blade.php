@@ -9,7 +9,7 @@
             <div class="recommend-products-list">
                 @foreach($recommendProducts as $product)
                     <div class="recommend-product-item">
-                        <img src="{{ asset('storage/test-images/' . $product->thumbnail_path) }}" alt="" class="product-thumbnail-small">
+                        <img src="{{ asset($product->thumbnail_path) }}" alt="" class="product-thumbnail-small">
                         <div class="bottom">
                             <a class="name" href="{{ $product->getShowRoute() }}">
                                 {{ $product->name }}

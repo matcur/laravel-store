@@ -6,14 +6,13 @@ namespace App\Store\Cart;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\Paginator;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
 
-class BuyableSet
+class ProductSet
 {
-    public Product $product;
     public int $count;
-    public int $productId;
+    public int $totalPrice;
+    public Product $product;
 
     public function __construct(Product $product, int $count = 1)
     {
@@ -22,7 +21,7 @@ class BuyableSet
 
         $this->product = $product;
         $this->count = $count;
-        $this->productId = $product->id;
+        $this->totalPrice = $this->totalPrice();
     }
 
     public function getTotalPrice()
@@ -45,14 +44,6 @@ class BuyableSet
         $product = Product::findOrFail($request->product_id);
 
         return new static($product, $request->count);
-    }
-
-    public function growCount(int $count)
-    {
-        if (!self::isValidProductsCount($count))
-            self::throwInvalidCountException($count);
-
-        $this->count += $count;
     }
 
     public static function isValidProductsCount($count)

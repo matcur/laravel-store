@@ -19,7 +19,7 @@
                                 <div class="short_description">{{ itemsSet.product.short_description }}</div>
                                 <div class="price">{{ itemsSet.product.price }}</div>
                                 <input class="count" type="number" :value="itemsSet.count">
-                                <div class="total-price">{{ itemsSet.count * itemsSet.product.price }}</div>
+                                <div class="total-price">{{ itemsSet.totalPrice }}</div>
                             </div>
                         </div>
                     </template>
@@ -34,13 +34,15 @@
 <script>
     /*
      * var cartItemsSets = [
-     *      {
-     *          thumbnail_path: String,
-     *          short_description: String,
+     *      [
+     *          product: {
+     *              thumbnail_path: String,
+     *              short_description: String,
+     *              price: Integer
+     *          },
      *          count: Integer,
-     *          one_item_price: Integer,
-     *          total_price: Integer,
-     *      }, ...
+     *          totalPrice: Integer,
+     *      ], ...
      *  ]
      */
     export default {
@@ -71,7 +73,7 @@
                 let products = [];
                 this.cartItemsSets.forEach((itemsSet) => {
                     products.push({
-                        id: itemsSet.productId,
+                        id: itemsSet.product.id,
                         count: itemsSet.count,
                     })
                 })
