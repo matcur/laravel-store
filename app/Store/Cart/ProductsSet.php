@@ -14,6 +14,8 @@ class ProductsSet implements BuyableSet
 {
     public Product $product;
     public int $count;
+    public int $productId;
+    public int $totalPrice;
 
     public function __construct(Product $product, int $count = 1)
     {
@@ -22,6 +24,7 @@ class ProductsSet implements BuyableSet
 
         $this->product = $product;
         $this->count = $count;
+        $this->productId = $product->id;
     }
 
     public function getTotalPrice()

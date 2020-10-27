@@ -9,6 +9,7 @@ use App\Store\Contracts\Cart\BuyableSet;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 
 class Cart
 {
@@ -28,6 +29,7 @@ class Cart
     {
         $cart = app(Cart::class);
         $productsRequest = collect($request['products']);
+        Log::info($request);
 
         $ids = $productsRequest->pluck('id');
         $counts = $productsRequest->pluck('count');

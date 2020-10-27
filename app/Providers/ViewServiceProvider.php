@@ -31,7 +31,7 @@ class ViewServiceProvider extends ServiceProvider
     public function boot()
     {
         view()->composer($this->needRecommendProducts, function() {
-            view()->share('recommendProducts', RecommendProduct::get(request()->ip()));
+            view()->share('recommendProducts', RecommendProduct::get(request()->ip(), 10));
         });
     }
 }
