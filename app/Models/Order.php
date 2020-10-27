@@ -16,7 +16,7 @@ class Order extends Model
         'paid_at',
     ];
 
-    public static function createFromCart(Cart $cart)
+    public static function createFromCart(Cart $cart): self
     {
         return Order::create([
             'products_json' => $cart->content,

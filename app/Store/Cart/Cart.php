@@ -5,7 +5,6 @@ namespace App\Store\Cart;
 
 
 use App\Models\Product;
-use App\Store\Contracts\Cart\BuyableSet;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -25,7 +24,7 @@ class Cart
         $this->content = $this->session->get($this->id) ?? new Collection;
     }
 
-    public static function makeFromRequest(Request $request)
+    public static function makeFromRequest(Request $request): self
     {
         $cart = app(Cart::class);
         $productsRequest = collect($request['products']);
@@ -35,7 +34,7 @@ class Cart
         $counts = $productsRequest->pluck('count');
         $products = Product::findOrFail($ids);
         for ($i = 0; $i < $products->count(); $i++) {
-            $productsSet = new ProductsSet($products[$i], $counts[$i]);
+            $productsSet = new BuyableSet($products[$i], $counts[$i]);
             $cart->add($productsSet);
         }
 

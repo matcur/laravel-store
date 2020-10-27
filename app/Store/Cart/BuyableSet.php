@@ -5,17 +5,15 @@ namespace App\Store\Cart;
 
 
 use App\Models\Product;
-use App\Store\Contracts\Cart\BuyableSet;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
 
-class ProductsSet implements BuyableSet
+class BuyableSet
 {
     public Product $product;
     public int $count;
     public int $productId;
-    public int $totalPrice;
 
     public function __construct(Product $product, int $count = 1)
     {
