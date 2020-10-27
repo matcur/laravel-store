@@ -4,19 +4,12 @@ namespace App\Http\Controllers\Store;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
-use App\Store\Services\ViewService;
+use App\Models\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class CategoryController extends Controller
 {
-    private ViewService $viewService;
-
-    public function __construct()
-    {
-        $this->viewService = new ViewService();
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -56,7 +49,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        $this->viewService->tryCreateTodayView($category);
+        View::tryCreateTodayView($category);
     }
 
     /**

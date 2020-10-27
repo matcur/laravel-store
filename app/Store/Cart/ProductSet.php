@@ -58,7 +58,7 @@ class ProductSet
 
     public function buyableId()
     {
-        return $this->product->getBuyableId();
+        return $this->product->id;
     }
 
     public function totalPrice()

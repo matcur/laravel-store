@@ -6,8 +6,8 @@ namespace App\Store\Recommends;
 
 use App\Models\Product;
 use App\Models\User;
+use App\Models\View;
 use App\Paginators\CollectionPaginator;
-use App\Store\Services\ViewService;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -57,11 +57,11 @@ class RecommendProduct
     {
         /** @var Collection $viewedProducts */
         if ($value instanceof User) {
-            $viewedProducts = (new ViewService)->getProductsByColumn('user_id', $value->id);
+            $viewedProducts = View::getProductsByColumn('user_id', $value->id);
 
             return $viewedProducts->unique('category_id')->pluck('category_id');
         } elseif (preg_match(IP_PREG_MATCH, $value)) {
-            $viewedProducts = (new ViewService)->getProductsByColumn('ip', $value);
+            $viewedProducts = View::getProductsByColumn('ip', $value);
 
             return $viewedProducts->unique('category_id')->pluck('category_id');
         }
