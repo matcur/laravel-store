@@ -1,5 +1,7 @@
 <template>
-    <form @submit.prevent="submitRequest">
+    <form name="create-order-form" :action="orderCreateUrl" method="POST">
+        <input type="hidden" name="json_cart">
+        <input type="hidden" name="_token" :value="csrfToken">
         <div class="card">
             <div class="card-body">
                 <div class="cart">
@@ -13,7 +15,7 @@
                              :key="index"
                              class="cart-item">
                             <div class="image-wrapper">
-                                <img :src="itemsSet.product.thumbanil_path" alt="">
+                                <img :src="siteDomain + itemsSet.product.thumbnail_path" alt="">
                             </div>
                             <div class="info">
                                 <div class="short_description">{{ itemsSet.product.short_description }}</div>
@@ -22,12 +24,12 @@
                                 <div class="total-price">{{ itemsSet.totalPrice }}</div>
                             </div>
                         </div>
+                        <button @click.prevent="submitRequest">Перейти к оплате</button>
                     </template>
                     <br>
                 </div>
             </div>
         </div>
-        <button>Перейти к оплате</button>
     </form>
 </template>
 
@@ -45,27 +47,31 @@
      *      ], ...
      *  ]
      */
+    import {csrfToken, siteDomain} from '../../../app';
+
     export default {
         props: {
             cartItemsSets: {
                 require: true,
                 type: Array
             },
-            storeOrderUrl: {
+            orderCreateUrl: {
                 require: true,
                 type: String
-            }
+            },
         },
         data() {
             return {
-                cartRequest: {
+                cart: {
                     products: [
                         {
                             id: '',
                             count: '',
                         }
                     ]
-                }
+                },
+                siteDomain: siteDomain,
+                csrfToken: csrfToken,
             };
         },
         methods: {
@@ -78,28 +84,23 @@
                     })
                 })
 
-                this.cartRequest.products = products;
+                this.cart.products = products;
+            },
+            createJsonCartInput() {
+                let jsonCartInput = document.querySelector('input[name="json_cart"]');
+                jsonCartInput.value = JSON.stringify(this.cart.products);
             },
             submitRequest() {
-                axios({
-                    url: this.storeOrderUrl,
-                    method: 'post',
-                    data: {
-                        products: this.cartRequest.products
-                    },
-                })
-                .then(res => console.log(res))
-                .catch(err => console.log(err))
+                this.updateCartRequest();
+
+                this.createJsonCartInput();
+
+                let form = document.querySelector('form[name="create-order-form"]');
+                form.submit();
             },
         },
-        watch: {
-            cartItemsSets() {
-                this.updateCartRequest();
-            }
-        },
         created() {
-            console.log(this.cartItemsSets);
-            this.updateCartRequest();
+
         },
         mounted() {
         },

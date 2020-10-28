@@ -40,7 +40,7 @@ class CartController extends Controller
     public function remove(Request $request, Cart $cart)
     {
         $productsSet = ProductSet::makeFromRequest($request);
-        $cart->remove($productsSet->id);
+        $cart->remove($productsSet->buyableId());
 
         return response()->json($cart);
     }

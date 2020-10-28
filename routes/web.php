@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Store\CartController;
+use App\Http\Controllers\Store\CategoryController;
 use App\Http\Controllers\Store\HomeController;
 use App\Http\Controllers\Store\OrderController;
 use App\Http\Controllers\Store\ProductController;
@@ -28,7 +29,7 @@ Route::group($args, function() {
         ->only(['show', 'create'])
         ->names('products');
 
-    Route::resource('categories', ProductController::class)
+    Route::resource('categories', CategoryController::class)
         ->only(['show'])
         ->names('categories');
 
@@ -39,8 +40,10 @@ Route::group($args, function() {
     Route::get('cart', [CartController::class, 'show'])
         ->name('cart.show');
 
-    Route::post('order', [OrderController::class, 'store'])
-        ->name('order.store');
+    Route::get('order/pay', [OrderController::class, 'pay'])
+        ->name('order.pay');
+    Route::post('order/create', [OrderController::class, 'create'])
+        ->name('order.create');
 });
 
 Auth::routes();

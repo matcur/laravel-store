@@ -5,6 +5,7 @@ namespace App\Store\Cart;
 
 
 use App\Models\Product;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -24,13 +25,20 @@ class Cart
         $this->content = $this->session->get($this->id) ?? new Collection;
     }
 
-    public static function makeFromRequest(Request $request): self
+    /**
+     * $json = '[id:]'
+     *
+     * @param string $json
+     * @return Cart
+     */
+    public static function makeFromJson(string $json)
     {
+        /** @var Cart $cart */
         $cart = app(Cart::class);
-        $productsRequest = collect($request['products']);
+        $productsData = collect(json_decode($json));
 
-        $ids = $productsRequest->pluck('id');
-        $counts = $productsRequest->pluck('count');
+        $ids = $productsData->pluck('id');
+        $counts = $productsData->pluck('count');
         $products = Product::findOrFail($ids);
         for ($i = 0; $i < $products->count(); $i++) {
             $productsSet = new ProductSet($products[$i], $counts[$i]);

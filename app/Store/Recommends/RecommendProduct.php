@@ -52,20 +52,22 @@ class RecommendProduct
      *
      * @param string|User $value
      * @return Collection
+     * @throws \Exception
      */
     private static function getRecommendCategoriesIds($value)
     {
-        /** @var Collection $viewedProducts */
         if ($value instanceof User) {
-            $viewedProducts = View::getProductsByColumn('user_id', $value->id);
-
-            return $viewedProducts->unique('category_id')->pluck('category_id');
+            $columnName = 'user_id';
+            $value = $value->id;
         } elseif (preg_match(IP_PREG_MATCH, $value)) {
-            $viewedProducts = View::getProductsByColumn('ip', $value);
-
-            return $viewedProducts->unique('category_id')->pluck('category_id');
+            $columnName = 'ip';
+        } else {
+            throw new \Exception("[$value] must be instance of " . User::class . " or ip");
         }
 
-        throw new \InvalidArgumentException("[$value] must be instance of " . User::class . " or ip");
+        /** @var Collection $viewedProducts */
+        $viewedProducts = View::getProductsByColumn($columnName, $value);
+
+        return $viewedProducts->unique('category_id')->pluck('category_id');
     }
 }

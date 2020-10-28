@@ -21,7 +21,7 @@
                                     </span>
                                 </div>
                                 <div class="product-image-wrapper">
-                                    <img src="{{ asset('storage/test-images/' . $product->thumbnail_path)  }}"
+                                    <img src="{{ asset($product->thumbnail_path)  }}"
                                          alt="Product image"
                                          class="product-thumbnail-big">
                                 </div>
