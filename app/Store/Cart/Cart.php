@@ -69,30 +69,43 @@ class Cart
         if (!is_null($oldSet))
             $set->count += $oldSet->count;
 
+        if ($set->count < 0) {
+            throw new \Exception("Product count can't be less than 0, {$set->count} given");
+        }
+
+        if ($set->count == 0) {
+            $this->remove($set->buyableId());
+            return $this;
+        }
+
         $this->content->put($set->buyableId(), $set);
         $this->session->put($this->id, $this->content);
 
         return $this;
     }
 
-    public function get($buyableId)
+    public function get($buyableId): ?ProductSet
     {
-        /** @var Collection $content */
-        $content = $this->session->get($this->id);
-
-        return $content->get($buyableId);
+        return $this->content->get($buyableId);
     }
 
     public function remove($buyableId)
     {
-        /** @var Collection $content */
-        $content = $this->session->get($this->id);
-
-        return $content->forget($buyableId);
+        return $this->content->forget($buyableId);
     }
 
     public function flush()
     {
         $this->session->put($this->id, new Collection());
+    }
+
+    public function productSetCount($buyableId)
+    {
+        $productSet = $this->content->get($buyableId);
+
+        if (!is_null($productSet))
+            return $productSet->count;
+
+        return 0;
     }
 }

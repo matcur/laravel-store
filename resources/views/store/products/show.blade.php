@@ -22,7 +22,10 @@
                             <div class="description">
                                 {{ $product->description }}
                             </div>
-                            @include('store.includes.add-in-cart-form')
+                            <add-product csrf-token="{{ csrf_token() }}"
+                                              :product="{{ $product->toJson() }}"
+                                              cart-add-route="{{ route('store.cart.add') }}"
+                                              primordial-product-count="{{ $currentProductCountInCart }}"></add-product>
                         </div>
                     </div>
                 </div>

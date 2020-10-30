@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Store;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Store\Cart\Cart;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use App\Models\View;
@@ -37,13 +38,16 @@ class ProductController extends Controller
      * Display the specified resource.
      *
      * @param Product $product
+     * @param Cart $cart
      * @return Application|Factory|View
      */
-    public function show(Product $product)
+    public function show(Product $product, Cart $cart)
     {
         View::tryCreateTodayView($product);
 
-        return view('store.products.show', compact('product'));
+        $currentProductCountInCart = $cart->productSetCount($product->id);
+
+        return view('store.products.show', compact('product', 'currentProductCountInCart'));
     }
 
     /**

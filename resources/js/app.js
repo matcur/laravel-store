@@ -23,9 +23,10 @@ export const csrfToken = document.querySelector('meta[name="csrf-token"]').conte
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 import OrderForm from './components/storage/cart/Order-Form';
+import AddProduct from './components/storage/products/Add-Product'
 
 Vue.component('order-form', OrderForm);
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('add-product', AddProduct);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
