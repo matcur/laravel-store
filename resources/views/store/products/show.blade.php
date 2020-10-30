@@ -14,7 +14,7 @@
                     <div class="card-body">
                         <div class="product">
                             <div class="product-image-wrapper">
-                                <img src="{{ asset('storage/test-images/' . $product->thumbnail_path) }}" alt="">
+                                <img src="{{ asset($product->thumbnail_path) }}" alt="">
                             </div>
                             <div class="price">
                                 {{ $product->getPriceWithSymbol() }}
@@ -22,10 +22,10 @@
                             <div class="description">
                                 {{ $product->description }}
                             </div>
-                            <add-product csrf-token="{{ csrf_token() }}"
+                            <add-product-form csrf-token="{{ csrf_token() }}"
                                               :product="{{ $product->toJson() }}"
                                               cart-add-route="{{ route('store.cart.add') }}"
-                                              primordial-product-count="{{ $currentProductCountInCart }}"></add-product>
+                                              initial-product-count="{{ $currentProductCountInCart }}"></add-product-form>
                         </div>
                     </div>
                 </div>
