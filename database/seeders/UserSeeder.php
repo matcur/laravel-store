@@ -20,8 +20,7 @@ class UserSeeder extends Seeder
 
         User::factory()
             ->create([
-                'is_admin' => 1,
-                'email' => 'admin@gmail.com',
+                'email' => 'user@gmail.com',
             ]);
     }
 }

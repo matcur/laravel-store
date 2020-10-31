@@ -3,15 +3,17 @@
 namespace App\Models;
 
 use App\Store\Contracts\Models\Imageable;
-use App\Store\Contracts\Models\HasShowRoute;
+use App\Store\Contracts\Models\HasShowRoute as HasShowRouteContract;
 use App\Store\Contracts\Models\Viewable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Traits\HasShowRoute;
 
-class Product extends Model implements HasShowRoute, Viewable, Imageable
+class Product extends Model implements HasShowRouteContract, Viewable, Imageable
 {
     use HasFactory;
+    use HasShowRoute;
 
     protected $fillable = [
         'name',
@@ -20,6 +22,8 @@ class Product extends Model implements HasShowRoute, Viewable, Imageable
         'currency_id',
         'price',
     ];
+
+    protected string $showRouteName = 'store.products.show';
 
     public function category()
     {

@@ -67,13 +67,13 @@
                 this.submit()
                 this.addProductCount = 0;
             },
-            async submit() {
+            submit() {
                 let _addProductCount = this.addProductCount;
 
                 this.oldProductCount += this.addProductCount;
                 this.addProductCount = 0;
 
-                await axios({
+                axios({
                     url: this.cartAddRoute,
                     method: 'POST',
                     data: {

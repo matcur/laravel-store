@@ -46,4 +46,10 @@ Route::group($args, function() {
         ->name('order.create');
 });
 
+$args = [
+    'prefix' => 'admin',
+    'as' => 'admin.',
+    'middleware' => ['auth:admin']
+];
+
 Auth::routes();
