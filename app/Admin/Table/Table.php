@@ -10,6 +10,7 @@ use Illuminate\Support\Collection;
 
 class Table implements PageElementContract
 {
+    private Collection $items;
     private Collection $columns;
     private Collection $columnNames;
     private LengthAwarePaginator $modelPaginate;
@@ -30,6 +31,7 @@ class Table implements PageElementContract
 
     public function render()
     {
+        $start = microtime(true);
         echo '<table>';
 
         $this->renderHead();
@@ -38,6 +40,7 @@ class Table implements PageElementContract
         echo '</table>';
 
         $this->renderLinks();
+        echo microtime(true) - $start;
     }
 
     private function renderHead()
@@ -57,22 +60,16 @@ class Table implements PageElementContract
     {
         echo '<tbody>';
 
-        $this->modelPaginate->each(function(Model $model) {
-            $this->renderRow($model);
-        });
+        $this->renderRows();
 
         echo '</tbody>';
     }
 
-    private function renderRow(Model $model)
+    private function renderRows()
     {
-        echo '<tr>';
-
-        $this->columns->each(function(Column $column) use ($model) {
-            $column->renderRow($model);
+        $this->modelPaginate->each(function(Model $m, $key) {
+            (new Row($this->columns, $m))->render($key % 2 == 0);
         });
-
-        echo '</tr>';
     }
 
     private function renderLinks()

@@ -17,18 +17,27 @@ class Column
         $this->callback = $callback;
     }
 
-    public function renderRow(Model $model)
+    public function render(Model $model, bool $darkBg)
     {
         $content = $model->{$this->name};
 
         if ($this->callback !== null)
             $content = $this->callback->bindTo($model)();
 
-        echo "<th>$content</th>";
+        $this->openTag($darkBg);
+
+        echo $content;
+
+        echo '</th>';
     }
 
     public function setCallback(Closure $callback)
     {
         $this->callback = $callback;
+    }
+
+    private function openTag(bool $darkBg)
+    {
+        echo $darkBg? '<th class="dark-bg">': '<th class="light-bg">';
     }
 }
