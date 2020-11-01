@@ -1,16 +1,36 @@
 @extends('admin.layouts.store')
 
 @section('content')
-    <div class="container">
-        <div class="row justify-content-between">
-            @include('admin.includes.left-menu')
-            <div class="col-md-8">
-                <div class="card card-body">
-                    @foreach($dashboard->includes() as $include)
-                        {{ $include }}
-                    @endforeach
+    <main class="content">
+        <div class="content-container">
+            <div class="col col-3">
+                <div class="col-content">
+                    <h3 class="title">Самые продаваемые товары</h3>
+                    <ul class="more-sale-products">
+                        <li class="more-sale-products__item">
+                            <a href="#" class="more-sale-products__name">Some name</a>
+                            <span class="more-sale-products__sales">123</span>
+                            <span class="more-sale-products__rest">1234</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col col-3">
+                <div class="col-content">
+                    <h3 class="title">Самые просматриваемые товары</h3>
+                    <ul class="more-view-products">
+                        @foreach($products as $product)
+                        <li class="more-view-products__item">
+                            <a href="{{ $product->getShowRoute }}" class="more-view-products__name">
+                                {{ $product->name }}
+                            </a>
+                            <span class="more-view-products__views">{{ $product->viewCount }}</span>
+                            <span class="more-view-products__rest">{{ $product->restCount }}</span>
+                        </li>
+                        @endforeach
+                    </ul>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 @endsection

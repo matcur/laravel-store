@@ -1,0 +1,245 @@
+.container {
+  margin: 0 10px;
+}
+
+.header {
+  position: relative;
+  height: 50px;
+  width: 100%;
+  background: #6456e0;
+  font-family: 'Roboto', sans-serif;
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.header .container {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 100%;
+}
+
+.logo {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.logo__img {
+  height: 30px;
+}
+
+.logo__company-name {
+  padding-left: 10px;
+}
+
+.user {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 150px;
+}
+
+.user__avatar {
+  height: 30px;
+  width: 30px;
+  border-radius: 30px;
+}
+
+.drop-menu {
+  z-index: 1;
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  top: -90px;
+  right: -10px;
+  width: 100px;
+  color: #000;
+  border: 1px solid #ccc;
+  background: #fff;
+}
+
+.drop-menu__item {
+  padding: 10px 10px;
+}
+
+.drop-menu__item:hover {
+  background: #ccc;
+}
+
+.drop-menu__item:not(:last-child) {
+  border-bottom: 1px solid #ccc;
+}
+
+.burger-menu {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 18px;
+  height: 16px;
+}
+
+.burger-menu .line {
+  width: 18px;
+  height: 3px;
+  background: #fff;
+}
+
+.show-drop-down-menu {
+  position: absolute;
+  top: 100%;
+}
+
+.left-menu-wrapper {
+  z-index: 2;
+  position: relative;
+  display: inline-block;
+  left: -130px;
+  width: 170px;
+  height: 100%;
+  background: #5934ff;
+  -webkit-transition: .3s;
+  transition: .3s;
+  font-family: 'Roboto', sans-serif;
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.left-menu-wrapper .burger-menu-wrapper {
+  z-index: 20;
+  position: absolute;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+}
+
+.left-menu-wrapper .burger-menu-wrapper:hover {
+  background: #2f01ff;
+}
+
+.left-menu-wrapper .burger-menu {
+  position: relative;
+}
+
+.left-menu {
+  position: relative;
+  width: 130px;
+  height: 100%;
+  padding-top: 30px;
+  background: #5934ff;
+}
+
+.left-menu__item {
+  position: relative;
+  padding: 10px 10px;
+  font-size: 14px;
+}
+
+.left-menu__item:hover ul {
+  display: block;
+}
+
+.left-menu__item ul {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: calc( 100% + 30px);
+  padding-left: 10px;
+  background: #5934ff;
+}
+
+.left-menu__item ul li {
+  padding: 10px 10px 10px 0;
+}
+
+.show-drop-right-menu {
+  left: 0;
+}
+
+.content {
+  position: relative;
+  padding-top: 50px;
+  padding-left: 60px;
+  height: 100%;
+}
+
+.content-container {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+}
+
+.col {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 300px;
+  padding: 15px;
+  -webkit-box-flex: 0.1;
+      -ms-flex-positive: 0.1;
+          flex-grow: 0.1;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: #fff;
+}
+
+.col:not(:last-child) {
+  margin-right: 20px;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  background: #edeef0;
+}
+
+.main-content {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+}
+/*# sourceMappingURL=style.css.map */

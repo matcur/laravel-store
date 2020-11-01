@@ -1,0 +1,47 @@
+.left-menu-wrapper
+  z-index: 2
+  position: relative
+  display: inline-block
+  left: -130px
+  width: 170px
+  height: 100%
+  background: #5934ff
+  transition: .3s
+  @include main-font
+  .burger-menu-wrapper
+    z-index: 20
+    position: absolute
+    right: 0
+    width: 40px
+    height: 40px
+    padding: 10px
+    &:hover
+      background: darken(#5934ff, 10)
+  .burger-menu
+    position: relative
+
+.left-menu
+  position: relative
+  width: 130px
+  height: 100%
+  padding-top: 30px
+  background: #5934ff
+  &__item
+    position: relative
+    padding: 10px 10px
+    @include main-font-size
+    &:hover
+      ul
+        display: block
+    ul
+      display: none
+      position: absolute
+      top: 0
+      left: calc( 100% + 30px )
+      padding-left: 10px
+      background: #5934ff
+      li
+        padding: 10px 10px 10px 0
+
+.show-drop-right-menu
+  left: 0

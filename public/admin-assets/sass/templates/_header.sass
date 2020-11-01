@@ -1,0 +1,67 @@
+.header
+  position: relative
+  height: 50px
+  width: 100%
+  background: #6456e0
+  @include main-font
+  .container
+    position: relative
+    display: flex
+    justify-content: space-between
+    align-items: center
+    height: 100%
+
+.logo
+  position: relative
+  display: flex
+  align-items: center
+  &__img
+    height: 30px
+  &__company-name
+    padding-left: 10px
+
+.user
+  display: flex
+  align-items: center
+  justify-content: space-between
+  width: 150px
+  &__avatar
+    height: 30px
+    width: 30px
+    border-radius: 30px
+  
+.drop-menu
+  z-index: 1
+  position: absolute
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+  top: -90px
+  right: -10px
+  width: 100px
+  color: #000
+  border: 1px solid #ccc
+  background: #fff
+  &__item
+    padding: 10px 10px
+    &:hover
+      background: #ccc
+    &:not(:last-child)
+      border-bottom: 1px solid #ccc
+      
+
+.burger-menu
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+  width: 18px
+  height: 16px
+  .line
+    width: 18px
+    height: 3px
+    background: #fff
+
+.show-drop-down-menu
+  position: absolute
+  top: 100%
+

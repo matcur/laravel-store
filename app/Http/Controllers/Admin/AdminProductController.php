@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-
 use App\Models\Product;
 
 class AdminProductController extends AdminController
@@ -22,15 +21,5 @@ class AdminProductController extends AdminController
             });
 
         return view('admin.store.products.index', compact('table'));
-    }
-
-    public function showCreateForm()
-    {
-
-    }
-
-    public function showUpdateForm()
-    {
-
     }
 }
