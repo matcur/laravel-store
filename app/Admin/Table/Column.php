@@ -31,7 +31,8 @@ class Column
         echo '</th>';
     }
 
-    public function setCallback(Closure $callback)
+    //Использует $callback для вывода значения ячейки колонны
+    public function displayAs(Closure $callback)
     {
         $this->callback = $callback;
     }

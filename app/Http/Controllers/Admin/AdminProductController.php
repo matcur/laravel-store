@@ -11,12 +11,12 @@ class AdminProductController extends AdminController
         $table = $this->tableFrom(new Product);
 
         $table->addColumn('name', 'Name')
-            ->setCallback(function () {
+            ->displayAs(function () {
                 return $this->getShowATag($this->name);
             });
         $table->addColumn('short_description', 'Short Description');
         $table->addColumn('price', 'Price')
-            ->setCallback(function () {
+            ->displayAs(function () {
                 return "{$this->price} {$this->getCurrencySymbol()}";
             });
 
