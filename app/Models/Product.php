@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Store\Contracts\Models\Imageable;
 use App\Store\Contracts\Models\HasShowRoute as HasShowRouteContract;
 use App\Store\Contracts\Models\Viewable;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -45,10 +46,46 @@ class Product extends Model implements HasShowRouteContract, Viewable, Imageable
         return $this->morphMany(View::class, 'viewable');
     }
 
-    public function scopePopulars(Builder $query)
+    public static function scopePopular(Builder $query)
     {
         return $query->withCount('views')
             ->orderBy('views_count', 'desc');
+    }
+
+    public static function scopePopularInTime(Builder $query, Carbon $time)
+    {
+        return $query->withCount(['views' => function(Builder $q) use ($time) {
+            $q->where('views.created_at', '>', $time);
+        }])
+            ->orderBy('views_count', 'desc');
+    }
+
+    public static function scopePopularToday(Builder $query)
+    {
+        return $query->popularInTime(today());
+    }
+
+    public static function getPopular(?int $limit = null)
+    {
+        return Product::popular()
+            ->when(!is_null($limit), function (Builder $q) use ($limit) {
+                $q->limit($limit);
+            })
+            ->get();
+    }
+
+    public static function getPopularToday(?int $limit = null)
+    {
+        return Product::popularToday()
+            ->when(!is_null($limit), function (Builder $q) use ($limit) {
+                $q->limit($limit);
+            })
+            ->get();
+    }
+
+    public static function getPopularsPaginate($perPage = 10)
+    {
+        return self::populars()->with('currency')->paginate($perPage);
     }
 
     //Добавил, чтобы избавиться от float в базе данных
@@ -80,10 +117,5 @@ class Product extends Model implements HasShowRouteContract, Viewable, Imageable
     public function getCurrencySymbol()
     {
         return $this->currency->symbol;
-    }
-
-    public static function getPopularsPaginate($perPage = 10)
-    {
-        return self::populars()->with('currency')->paginate($perPage);
     }
 }

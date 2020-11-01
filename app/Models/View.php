@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Store\Contracts\Models\Viewable;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -28,9 +29,26 @@ class View extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function scopeProducts($query)
+    public function scopeProducts(Builder $query)
     {
         return $query->where('viewable_type', Product::class);
+    }
+
+    public function scopePopular(Builder $query)
+    {
+        return $query->withCount('viewable')
+            ->groupBy('viewable_count');
+    }
+
+    public function scopePopularInTime(Builder $query, Carbon $date)
+    {
+        return self::scopePopular($query)
+            ->where('created_at', '>', $date);
+    }
+
+    public function scopePopularToday(Builder $query)
+    {
+        return self::scopePopularInTime($query, today());
     }
 
     public static function getProductsByColumn($column, $value)
@@ -43,7 +61,7 @@ class View extends Model
     }
     public static function tryCreateTodayView(Viewable $viewable, ?User $user = null, ?string $ip  = null)
     {
-        if (View::todayViewExists($viewable, $user, $ip))
+        if (!View::todayViewExists($viewable, $user, $ip))
             View::createView($viewable, $user, $ip);
     }
 
